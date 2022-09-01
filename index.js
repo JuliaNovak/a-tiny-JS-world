@@ -44,7 +44,7 @@ const man = {
 };
 
 const catWoman = {
-   species: "cat",
+   species: "cat-woman",
    name: "Ro",
    gender: "female",
    legs: 2,
