@@ -1,79 +1,76 @@
-/* Refer to https://github.com/OleksiyRudenko/a-tiny-JS-world for the task details
-   Complete the below for code reviewers' convenience:
-
-   Code repository: _put repo URL here_
-   Web app: _put project's github pages URL here_
-   */
-
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
-const dog = {
-   species: "dog",
-   name: "Toby",
-   gender: "male",
-   legs: 4,
-   hands: 0,
-   saying: "woof-woof!",
-};
+class Inhabitant {
+   constructor(species, name, gender, legs, hands, saying) {
+      this.species = species;
+      this.name = name;
+      this.gender = gender;
+      this.legs = legs;
+      this.hands = hands;
+      this.saying = saying;
+      this.properties = [
+         "name",
+         "species",
+         "gender",
+         "legs",
+         "hands",
+         "saying",
+      ];
+   }
 
-const cat = {
-   species: "cat",
-   name: "Lily",
-   gender: "female",
-   legs: 4,
-   hands: 0,
-   saying: "meow!",
-};
+   get props() {
+      return this.properties.map((value) => this[value]);
+   }
 
-const woman = {
-   species: "human",
-   name: "Linda",
-   gender: "female",
-   legs: 2,
-   hands: 2,
-   saying: "What a pretty kitten!",
-};
+   display(inhabitantsArr) {
+      inhabitantsArr.map((inhabitant) => {
+         print(inhabitant.props);
+      });
+   }
+}
 
-const man = {
-   species: "human",
-   name: "Jim",
-   gender: "male",
-   legs: 2,
-   hands: 2,
-   saying: "Heyyo!",
-};
+class Human extends Inhabitant {
+   constructor(species, name, gender, saying) {
+      super(species, name, gender);
+      this.legs = 2;
+      this.hands = 2;
+      this.saying = saying;
+   }
+}
 
-const catWoman = {
-   species: "cat-woman",
-   name: "Ro",
-   gender: "female",
-   legs: 2,
-   hands: 2,
-   saying: cat.saying,
-};
+class Cat extends Inhabitant {
+   constructor(species, name, gender, saying) {
+      super(species, name, gender);
+      this.legs = 4;
+      this.hands = 0;
+      this.saying = saying;
+   }
+}
+
+class Dog extends Inhabitant {
+   constructor(species, name, gender, saying) {
+      super(species, name, gender);
+      this.legs = 4;
+      this.hands = 0;
+      this.saying = saying;
+   }
+}
+
+class CatWoman extends Cat {
+   constructor(species, name, gender, saying) {
+      super(species, name, gender, saying);
+      this.hands = 2;
+      this.legs = 2;
+   }
+}
+
+const dog = new Dog("dog", "Toby", "male", "Woof!");
+const cat = new Cat("cat", "Lily", "female", "meow!");
+const woman = new Human("woman", "Linda", "female", "What a pretty kitten!");
+const man = new Human("man", "Jim", "male", "Heyyo!");
+const catWoman = new CatWoman("catWoman", "Ro", "female", cat.saying);
 
 // ======== OUTPUT ========
-
 const inhabitantsArr = [dog, cat, man, woman, catWoman];
-inhabitantsArr.forEach((inhabitant) => {
-   const inhabitantToArr = Object.values(inhabitant);
-   print(inhabitantToArr.map((prop) => prop));
-});
-
-/* Use print(message) for output.
-   Default tag for message is <pre>. Use print(message,'div') to change containing element tag.
-
-   Message can contain HTML markup. You may also tweak index.html and/or styles.css.
-   However, please, REFRAIN from improving visuals at least until your code is reviewed
-   so code reviewers might focus on a single file that is index.js.
-   */
-
-/* Print examples:
-   print('ABC');
-   print('<strong>ABC</strong>');
-   print('<strong>ABC</strong>', 'div');
-
-   print('human; John; male; 2; 2; Hello world!; Rex, Tom, Jenny');
-   print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny');
-   print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny', 'div');
-   */
+const displayMethod = new Inhabitant();
+displayMethod.display(inhabitantsArr);
