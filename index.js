@@ -31,14 +31,19 @@ class Inhabitant {
 
 class Human extends Inhabitant {
    constructor(species, name, gender, saying) {
-      super(species, name, gender);
+      super((species = "human"), name, gender);
       this.legs = 2;
       this.hands = 2;
       this.saying = saying;
    }
 }
 
-class Cat extends Inhabitant {
+class Animal extends Inhabitant {
+   constructor(species, name, gender, saying) {
+      super(species, name, gender, saying);
+   }
+}
+class Cat extends Animal {
    constructor(species, name, gender, saying) {
       super(species, name, gender);
       this.legs = 4;
@@ -47,7 +52,7 @@ class Cat extends Inhabitant {
    }
 }
 
-class Dog extends Inhabitant {
+class Dog extends Animal {
    constructor(species, name, gender, saying) {
       super(species, name, gender);
       this.legs = 4;
