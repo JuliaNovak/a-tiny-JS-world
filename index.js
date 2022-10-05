@@ -8,30 +8,21 @@ class Inhabitant {
       this.legs = legs;
       this.hands = hands;
       this.saying = saying;
-      this.properties = [
-         "name",
-         "species",
-         "gender",
-         "legs",
-         "hands",
-         "saying",
-      ];
    }
 
-   get props() {
-      return this.properties.map((value) => this[value]);
-   }
-
-   display(inhabitantsArr) {
-      inhabitantsArr.map((inhabitant) => {
-         print(inhabitant.props);
-      });
+   display() {
+      console.log(this);
+      let values = "";
+      for (const prop in this) {
+         values += ` ${this[prop]}`;
+      }
+      print(values);
    }
 }
 
 class Human extends Inhabitant {
-   constructor(species, name, gender, saying) {
-      super((species = "human"), name, gender);
+   constructor(name, gender, saying) {
+      super("human", name, gender);
       this.legs = 2;
       this.hands = 2;
       this.saying = saying;
@@ -41,22 +32,21 @@ class Human extends Inhabitant {
 class Animal extends Inhabitant {
    constructor(species, name, gender, saying) {
       super(species, name, gender, saying);
+      delete this.hands;
    }
 }
 class Cat extends Animal {
-   constructor(species, name, gender, saying) {
-      super(species, name, gender);
+   constructor(name, gender, saying) {
+      super("cat", name, gender);
       this.legs = 4;
-      this.hands = 0;
       this.saying = saying;
    }
 }
 
 class Dog extends Animal {
-   constructor(species, name, gender, saying) {
-      super(species, name, gender);
+   constructor(name, gender, saying) {
+      super("dog", name, gender);
       this.legs = 4;
-      this.hands = 0;
       this.saying = saying;
    }
 }
@@ -64,18 +54,18 @@ class Dog extends Animal {
 class CatWoman extends Cat {
    constructor(species, name, gender, saying) {
       super(species, name, gender, saying);
+      this.species = "catWoman";
       this.hands = 2;
       this.legs = 2;
    }
 }
 
-const dog = new Dog("dog", "Toby", "male", "Woof!");
-const cat = new Cat("cat", "Lily", "female", "meow!");
-const woman = new Human("woman", "Linda", "female", "What a pretty kitten!");
-const man = new Human("man", "Jim", "male", "Heyyo!");
-const catWoman = new CatWoman("catWoman", "Ro", "female", cat.saying);
+const dog = new Dog("Toby", "male", "Woof!");
+const cat = new Cat("Lily", "female", "meow!");
+const woman = new Human("Linda", "female", "What a pretty kitten!");
+const man = new Human("Jim", "male", "Heyyo!");
+const catWoman = new CatWoman("Ro", "female", cat.saying);
 
 // ======== OUTPUT ========
 const inhabitantsArr = [dog, cat, man, woman, catWoman];
-const displayMethod = new Inhabitant();
-displayMethod.display(inhabitantsArr);
+inhabitantsArr.forEach((inhabitant) => inhabitant.display());
